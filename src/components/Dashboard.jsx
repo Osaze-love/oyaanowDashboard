@@ -258,6 +258,7 @@ export default function PersistentDrawerLeft() {
               dispatch(resetStaffState());
               dispatch(resetCompanyState());
               dispatch(resetBookingsState());
+              localStorage.clear();
             }}
             disablePadding
           >

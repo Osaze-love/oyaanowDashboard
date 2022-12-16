@@ -30,13 +30,13 @@ export default function RouteTable({
         </button>
       </div>
       <Paper className="w-4/4 lg:w-4/4 my-10 mx-auto">
-        {user.company.nyscRoutes.length > 1 ? (
+        {user?.company?.nyscRoutes?.length > 1 ? (
           <h2 className="font-bold text-center">
-            {user.company.name} Nysc Routes
+            {user?.company?.name} Nysc Routes
           </h2>
         ) : (
           <h2 className="font-bold text-center">
-            {user.company.name} Nysc Route
+            {user?.company?.name} Nysc Route
           </h2>
         )}
         <TableContainer sx={{ maxHeight: 440 }}>
@@ -86,8 +86,10 @@ export default function RouteTable({
             </TableHead>
             <TableBody>
               {user.company.nyscRoutes.map((row) => (
-                <TableRow key={row._id} hover>
-                  <TableCell className="text-center">{row.state?.to}</TableCell>
+                <TableRow key={row?._id} hover>
+                  <TableCell className="text-center">
+                    {row?.state?.to}
+                  </TableCell>
                   <TableCell>{row?.state?.from}</TableCell>
                   <TableCell className="text-center">
                     {row?.terminal?.to.location}
@@ -97,43 +99,50 @@ export default function RouteTable({
                   </TableCell>
 
                   <TableCell className="text-center">
-                    {row?.departureTimes}
+                    {row?.departureTimes?.join()}
                   </TableCell>
                   <TableCell className="text-center">
-                    {row?.departureDate}
+                    {row?.departureDate?.substring(0, 10)}
                   </TableCell>
                   <TableCell className="text-center">
                     {row?.recurring}
                   </TableCell>
                   <TableCell className="text-center">
-                    {row?.buses[0].name}
+                    {row?.buses?.map((bus) => (
+                      <div className="space-x-2"> {bus.name} </div>
+                    ))}
                   </TableCell>
                   <TableCell className="text-center">
-                    {row?.buses[0].fare}
+                    {row?.buses?.map((bus) => (
+                      <div className="space-x-2"> {bus.fare} </div>
+                    ))}
                   </TableCell>
 
                   <TableCell className="text-center">
-                    {row?.buses[0].availableSeats}
+                    {row?.buses?.map((bus) => (
+                      <div className="space-x-2"> {bus.availableSeats} </div>
+                    ))}
                   </TableCell>
                   <TableCell className="text-center">
-                    <button
-                      onClick={() => {
-                        setReservation(row.buses[0].reservations);
-                        setReservationModal(true);
-                        console.log(reservation);
-                      }}
-                      className="border transition hover:scale-105 active:scale-90"
-                    >
-                      Click to View
-                    </button>
+                    {row?.buses?.map((bus, index) => (
+                      <button
+                        onClick={() => {
+                          setReservation(bus?.reservations);
+                          setReservationModal(true);
+                        }}
+                        className="border transition hover:scale-105 active:scale-90"
+                      >
+                        Click to View
+                      </button>
+                    ))}
                   </TableCell>
                   <TableCell className="text-center">
                     {row?.addedBy?.name}
                   </TableCell>
                   <TableCell
                     onClick={() => {
-                      setNyscRouteId(row._id);
-                      setCompanyId(user.company._id);
+                      setNyscRouteId(row?._id);
+                      setCompanyId(user?.company?._id);
                       setStaffNyscModal(true);
                     }}
                   >

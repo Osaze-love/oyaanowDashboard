@@ -21,6 +21,7 @@ export default function StickyHeadTable() {
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
+  dd = dd - 1;
   var mm = String(today.getMonth() + 1).padStart(2, "0");
   var yyyy = today.getFullYear();
 
@@ -51,7 +52,7 @@ export default function StickyHeadTable() {
           className="focus:outline-none w-2/6 border px-2"
         >
           <option value="">Default</option>
-          <option value={today}>Today</option>
+          <option value={today}>Yesterday</option>
         </select>
       </div>
       <Paper className="w-full lg:w-4/4 mx-auto">
@@ -97,7 +98,25 @@ export default function StickyHeadTable() {
                   State
                 </TableCell>
                 <TableCell className="text-center bg-black text-white">
-                  Employment Info
+                  Occupation
+                </TableCell>
+                <TableCell className="text-center bg-black text-white">
+                  Employer Name
+                </TableCell>
+                <TableCell className="text-center bg-black text-white">
+                  Employer Phone
+                </TableCell>
+                <TableCell className="text-center bg-black text-white">
+                  Employer Email
+                </TableCell>
+                <TableCell className="text-center bg-black text-white">
+                  Company Email
+                </TableCell>
+                <TableCell className="text-center bg-black text-white">
+                  Company Name
+                </TableCell>
+                <TableCell className="text-center bg-black text-white">
+                  Company Phone
                 </TableCell>
                 <TableCell className="text-center bg-black text-white">
                   Email
@@ -181,87 +200,109 @@ export default function StickyHeadTable() {
                 .map((row) => (
                   <TableRow key={row._id}>
                     <TableCell className="text-center font-bold">
-                      {row.firstname}
+                      {row?.firstname}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.lastname}
+                      {row?.lastname}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.middlename}
+                      {row?.middlename}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.ticketId}
+                      {row?.ticketId}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.visaType}
+                      {row?.visaType}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.nationality}
+                      {row?.nationality}
                     </TableCell>
-                    <TableCell className="text-center">{row.gender}</TableCell>
-                    <TableCell className="text-center">{row.DOB}</TableCell>
+                    <TableCell className="text-center">{row?.gender}</TableCell>
+                    <TableCell className="text-center">{row?.DOB}</TableCell>
                     <TableCell className="text-center">
-                      {row.maritalStatus}
-                    </TableCell>
-                    <TableCell className="text-center">{row.address}</TableCell>
-                    <TableCell className="text-center">{row.city}</TableCell>
-                    <TableCell className="text-center">{row.state}</TableCell>
-                    <TableCell className="text-center">
-                      {row.employmentInfo}
-                    </TableCell>
-                    <TableCell className="text-center">{row.email}</TableCell>
-                    <TableCell className="text-center">
-                      {row.phoneNumber}
+                      {row?.maritalStatus}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.travellingInfo.departureDate}
+                      {row?.address}
+                    </TableCell>
+                    <TableCell className="text-center">{row?.city}</TableCell>
+                    <TableCell className="text-center">{row?.state}</TableCell>
+                    <TableCell className="text-center">
+                      {row?.employmentInfo?.occupation}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.createdAt}
+                      {row?.employmentInfo?.employerName}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {row?.employmentInfo?.employerPhone}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {row?.employmentInfo?.employerEmail}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {row?.employmentInfo?.companyEmail}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {row?.employmentInfo?.companyName}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {row?.employmentInfo?.companyPhone}
+                    </TableCell>
+                    <TableCell className="text-center">{row?.email}</TableCell>
+                    <TableCell className="text-center">
+                      {row?.phoneNumber}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {row?.travellingInfo?.departureDate}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {row?.createdAt.substring(0, 10)}
                     </TableCell>
                     <TableCell className="text-center ">
                       <a
                         className="border px-2 transition hover:scale-105 active:scale-90"
-                        href={row.passportDetails.photo}
+                        href={row?.passportDetails?.photo}
                         download={`${row.firstname}passport photo`}
                       >
                         Download
                       </a>
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.passportDetails.number}
+                      {row?.passportDetails?.number}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.passportDetails.expDate}
+                      {row?.passportDetails?.expDate}
                     </TableCell>
                     <TableCell className="text-center">
                       <a
                         className="border px-2 transition hover:scale-105 active:scale-90"
-                        href={row.passportDetails.dataPage}
+                        href={row?.passportDetails?.dataPage}
                         download={`${row.firstname}datapage`}
                       >
                         Download
                       </a>
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.travellingInfo.arrivalDate}
+                      {row?.travellingInfo?.arrivalDate}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.travellingInfo.travellersNo}
+                      {row?.travellingInfo?.travellersNo}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.travellingInfo.uaeContact}
+                      {row?.travellingInfo?.uaeContact}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.travellingInfo.bookingId}
+                      {row?.travellingInfo?.bookingId}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.travellingInfo.recentDestination}
+                      {row?.travellingInfo?.recentDestination}
                     </TableCell>
                     <TableCell className="text-center">
                       <button
                         onClick={() => {
-                          setDubaiImage(row.travellingCompanionInfo.dataPages);
+                          setDubaiImage(
+                            row?.travellingCompanionInfo?.dataPages
+                          );
 
                           setDubaiModal(true);
                           setDubaiText("Data Pages");
@@ -275,7 +316,7 @@ export default function StickyHeadTable() {
                       <button
                         onClick={() => {
                           setDubaiImage(
-                            row.travellingCompanionInfo.passportPhotos
+                            row?.travellingCompanionInfo?.passportPhotos
                           );
 
                           setDubaiModal(true);
@@ -290,7 +331,7 @@ export default function StickyHeadTable() {
                       <button
                         onClick={() => {
                           setDubaiImage(
-                            row.travellingCompanionInfo.birthCertificate
+                            row?.travellingCompanionInfo?.birthCertificate
                           );
 
                           setDubaiModal(true);
@@ -304,7 +345,7 @@ export default function StickyHeadTable() {
                     <TableCell className="text-center transition hover:scale-105 active:scale-90 cursor-pointer">
                       <a
                         className="border px-2 transition hover:scale-105 active:scale-90"
-                        href={row.travellingCompanionInfo?.marriageCertificate}
+                        href={row?.travellingCompanionInfo?.marriageCertificate}
                         download={`${row.firstname} travelCompanionmarriageCert`}
                       >
                         Download
@@ -313,7 +354,7 @@ export default function StickyHeadTable() {
                     <TableCell className="text-center transition hover:scale-105 active:scale-90 cursor-pointer">
                       <a
                         className="border px-2 transition hover:scale-105 active:scale-90"
-                        href={row.travellingCompanionInfo?.affidavit}
+                        href={row?.travellingCompanionInfo?.affidavit}
                         download={`${row.firstname} travellingCompanionAffidavit`}
                       >
                         Download

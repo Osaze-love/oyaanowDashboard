@@ -17,9 +17,9 @@ export default function StickyHeadTable() {
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
+  dd = dd - 1;
   var mm = String(today.getMonth() + 1).padStart(2, "0");
   var yyyy = today.getFullYear();
-
   today = yyyy + "-" + mm + "-" + dd;
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function StickyHeadTable() {
           className="focus:outline-none w-2/6 border px-2"
         >
           <option value="">Default</option>
-          <option value={today}>Today</option>
+          <option value={today}>Yesterday</option>
         </select>
       </div>
 
@@ -106,31 +106,31 @@ export default function StickyHeadTable() {
                   }
                 })
                 .map((row) => (
-                  <TableRow key={row._id}>
+                  <TableRow key={row?._id}>
                     <TableCell className="text-center font-bold">
-                      {row.email}
+                      {row?.email}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.phoneNumber}
+                      {row?.phoneNumber}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.busNumber}
+                      {row?.busNumber}
                     </TableCell>
 
                     <TableCell className="text-center">
-                      {row.departureDate}
+                      {row?.departureDate}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.createdAt}
+                      {row?.createdAt?.substring(0, 10)}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.ticketId}
+                      {row?.ticketId}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.state.to}
+                      {row?.state?.to}
                     </TableCell>
                     <TableCell className="text-center">
-                      {row.state.from}
+                      {row?.state?.from}
                     </TableCell>
                   </TableRow>
                 ))}

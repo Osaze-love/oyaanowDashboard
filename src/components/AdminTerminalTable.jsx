@@ -44,14 +44,14 @@ export default function TerminalTable({ terminals, id, companyName }) {
             </TableHead>
             <TableBody>
               {terminals.map((row) => (
-                <TableRow key={row._id} hover>
-                  <TableCell>{row.location}</TableCell>
-                  <TableCell>{row.address}</TableCell>
-                  <TableCell>{row.landmark}</TableCell>
-                  <TableCell>{row.addedBy?.name}</TableCell>
+                <TableRow key={row?._id} hover>
+                  <TableCell>{row?.location}</TableCell>
+                  <TableCell>{row?.address}</TableCell>
+                  <TableCell>{row?.landmark}</TableCell>
+                  <TableCell>{row?.addedBy?.name}</TableCell>
                   <TableCell
                     onClick={() => {
-                      setTerminalId(row._id);
+                      setTerminalId(row?._id);
                       setCompanyId(id);
                       setAdminTerminalModal(true);
                     }}

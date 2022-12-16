@@ -46,15 +46,15 @@ export default function CompanyTable({
               </TableHead>
               <TableBody>
                 {company.map((row) => (
-                  <TableRow hover key={row._id}>
-                    <TableCell className="font-bold">{row.name}</TableCell>
-                    <TableCell>{row.email}</TableCell>
-                    <TableCell>{row.phoneNumber}</TableCell>
-                    <TableCell>{row.lastUpdatedBy.name}</TableCell>
+                  <TableRow hover key={row?._id}>
+                    <TableCell className="font-bold">{row?.name}</TableCell>
+                    <TableCell>{row?.email}</TableCell>
+                    <TableCell>{row?.phoneNumber}</TableCell>
+                    <TableCell>{row?.lastUpdatedBy?.name}</TableCell>
                     <TableCell
                       onClick={() => {
                         setCompanyModal(true);
-                        setCompanyId(row._id);
+                        setCompanyId(row?._id);
                       }}
                     >
                       <DeleteIcon className="cursor-pointer hover:scale-105 transition" />

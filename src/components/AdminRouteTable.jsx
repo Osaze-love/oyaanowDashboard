@@ -87,51 +87,58 @@ export default function RouteTable({
             </TableHead>
             <TableBody>
               {routes.map((row) => (
-                <TableRow key={row._id} hover>
+                <TableRow key={row?._id} hover>
                   <TableCell className="text-center">{row.state.to}</TableCell>
-                  <TableCell>{row.state.from}</TableCell>
+                  <TableCell>{row?.state?.from}</TableCell>
                   <TableCell className="text-center">
-                    {row.terminal.to.location}
+                    {row?.terminal?.to?.location}
                   </TableCell>
                   <TableCell className="text-center">
-                    {row.terminal.from.location}
+                    {row?.terminal?.from?.location}
                   </TableCell>
 
                   <TableCell className="text-center">
-                    {row.departureTimes}
+                    {row?.departureTimes?.join()}
                   </TableCell>
                   <TableCell className="text-center">
-                    {row.departureDate}
+                    {row?.departureDate?.substring(0, 10)}
                   </TableCell>
                   <TableCell className="text-center">{row.recurring}</TableCell>
                   <TableCell className="text-center">
-                    {row.buses[0].name}
+                    {row?.buses?.map((bus) => (
+                      <div className="space-x-2"> {bus?.name} </div>
+                    ))}
                   </TableCell>
                   <TableCell className="text-center">
-                    {row.buses[0].fare}
+                    {row?.buses?.map((bus) => (
+                      <div className="space-x-2"> {bus?.fare} </div>
+                    ))}
                   </TableCell>
 
                   <TableCell className="text-center">
-                    {row.buses[0].availableSeats}
+                    {row?.buses?.map((bus) => (
+                      <div className="space-x-2"> {bus?.availableSeats} </div>
+                    ))}
                   </TableCell>
                   <TableCell className="text-center">
-                    <button
-                      onClick={() => {
-                        setReservation(row.buses[0].reservations);
-                        setReservationModal(true);
-                        console.log(reservation);
-                      }}
-                      className="border transition hover:scale-105 active:scale-90"
-                    >
-                      Click to View
-                    </button>
+                    {row?.buses?.map((bus, index) => (
+                      <button
+                        onClick={() => {
+                          setReservation(bus?.reservations);
+                          setReservationModal(true);
+                        }}
+                        className="border transition hover:scale-105 active:scale-90"
+                      >
+                        Click to View
+                      </button>
+                    ))}
                   </TableCell>
                   <TableCell className="text-center">
-                    {row.addedBy?.name}
+                    {row?.addedBy?.name}
                   </TableCell>
                   <TableCell
                     onClick={() => {
-                      setRouteId(row._id);
+                      setRouteId(row?._id);
                       setCompanyId(id);
                       setAdminRouteModal(true);
                     }}

@@ -55,31 +55,31 @@ export default function StaffListTable() {
               <TableBody>
                 {staff
                   ? staff.map((row) => (
-                      <TableRow hover key={row._id}>
-                        <TableCell>{row.firstname}</TableCell>
-                        <TableCell>{row.lastname}</TableCell>
-                        {row.roles.staff && !row.roles.admin ? (
+                      <TableRow hover key={row?._id}>
+                        <TableCell>{row?.firstname}</TableCell>
+                        <TableCell>{row?.lastname}</TableCell>
+                        {row?.roles?.staff && !row?.roles?.admin ? (
                           <TableCell>Staff</TableCell>
                         ) : null}
-                        {row.roles.staff &&
-                        row.roles.admin &&
-                        row.roles.superAdmin ? (
+                        {row?.roles?.staff &&
+                        row?.roles?.admin &&
+                        row?.roles?.superAdmin ? (
                           <TableCell>Super Admin</TableCell>
                         ) : null}
-                        {row.roles.staff &&
-                        row.roles.admin &&
-                        !row.roles.superAdmin ? (
+                        {row?.roles?.staff &&
+                        row?.roles?.admin &&
+                        !row?.roles?.superAdmin ? (
                           <TableCell>Admin</TableCell>
                         ) : null}
-                        <TableCell>{row.email}</TableCell>
+                        <TableCell>{row?.email}</TableCell>
                         <TableCell className="font-bold">
-                          {row.companyName}
+                          {row?.companyName}
                         </TableCell>
-                        <TableCell>{row.phoneNumber}</TableCell>
-                        <TableCell>{row.terminal}</TableCell>
+                        <TableCell>{row?.phoneNumber}</TableCell>
+                        <TableCell>{row?.terminal}</TableCell>
                         <TableCell
                           onClick={() => {
-                            setStaffId(row._id);
+                            setStaffId(row?._id);
                             setStaffModal(true);
                           }}
                         >

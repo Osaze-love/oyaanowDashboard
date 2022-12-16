@@ -6,7 +6,8 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-// import { PersistGate } from "redux-persist/integration/react";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor } from "./app/store";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -21,11 +22,11 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        {/* <PersistGate loading={null} persistor={persistor}> */}
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-        {/* </PersistGate> */}
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </PersistGate>
       </Provider>
     </ThemeProvider>
   </React.StrictMode>

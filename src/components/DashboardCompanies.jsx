@@ -20,10 +20,10 @@ export default function Company() {
 
   const [reservation, setReservation] = useState([]);
   const [reservationModal, setReservationModal] = useState(false);
-  const [routeTime, setRouteTime] = useState(["Time", "Time"]);
-  const [nyscRouteTime, setNyscRouteTime] = useState("");
-
-  const [timeCount, setTimeCount] = useState(2);
+  const [routeTime, setRouteTime] = useState([""]);
+  const [routeBus, setRouteBus] = useState([{ id: "", fare: "" }]);
+  const [nyscRouteTime, setNyscRouteTime] = useState([""]);
+  const [nyscRouteBus, setNyscRouteBus] = useState([{ id: "", fare: "" }]);
 
   const routeDepartureTime = (e, index) => {
     const timeString12hr = new Date(
@@ -38,10 +38,28 @@ export default function Company() {
     data[index] = timeString12hr;
     setRouteTime(data);
   };
+  const nyscRouteDepartureTime = (e, index) => {
+    const timeString12hr = new Date(
+      "1970-01-01T" + e.target.value + "Z"
+    ).toLocaleTimeString("en-US", {
+      timeZone: "UTC",
+      hour12: true,
+      hour: "numeric",
+      minute: "numeric",
+    });
+    let data = [...nyscRouteTime];
+    data[index] = timeString12hr;
+    setNyscRouteTime(data);
+  };
   const removeRouteDepartureTime = (index) => {
     let data = [...routeTime];
     data.splice(index, 1);
     setRouteTime(data);
+  };
+  const removeNyscRouteDepartureTime = (index) => {
+    let data = [...nyscRouteTime];
+    data.splice(index, 1);
+    setNyscRouteTime(data);
   };
 
   let routeList = [];
@@ -146,14 +164,6 @@ export default function Company() {
   });
 
   useEffect(() => {
-    console.log(routeData);
-  }, [routeData]);
-
-  useEffect(() => {
-    console.log(routeTime);
-    routeTime.map((item, index) => {
-      console.log(index);
-    });
     setRouteData({
       ...routeData,
       departureTimes: routeTime,
@@ -161,17 +171,9 @@ export default function Company() {
   }, [routeTime]);
 
   useEffect(() => {
-    const timeString12hr = new Date(
-      "1970-01-01T" + nyscRouteTime + "Z"
-    ).toLocaleTimeString("en-US", {
-      timeZone: "UTC",
-      hour12: true,
-      hour: "numeric",
-      minute: "numeric",
-    });
     setNyscRouteData({
       ...nyscRouteData,
-      departureTimes: [timeString12hr],
+      departureTimes: nyscRouteTime,
     });
   }, [nyscRouteTime]);
 
@@ -196,29 +198,53 @@ export default function Company() {
     recurring: "",
   });
 
-  const handleAddBus = (e) => {
-    setRouteData({
-      ...routeData,
-      buses: [
-        {
-          ...routeData.buses[0],
-          id: e.target.value,
-        },
-      ],
-    });
+  const handleAddBus = (e, index) => {
+    let data = [...routeBus];
+    data[index] = { ...data[index], id: e.target.value };
+    setRouteBus(data);
+  };
+  const handleAddFare = (e, index) => {
+    let data = [...routeBus];
+    data[index] = { ...data[index], fare: e.target.value };
+    setRouteBus(data);
   };
 
-  const handleAddNyscBus = (e) => {
+  const handleRemoveBus = (index) => {
+    let data = [...routeBus];
+    data.splice(index, 1);
+    setRouteBus(data);
+  };
+
+  useEffect(() => {
+    setRouteData({
+      ...routeData,
+      buses: routeBus,
+    });
+  }, [routeBus]);
+
+  const handleAddNyscBus = (e, index) => {
+    let data = [...nyscRouteBus];
+    data[index] = { ...data[index], id: e.target.value };
+    setNyscRouteBus(data);
+  };
+  const handleAddNyscFare = (e, index) => {
+    let data = [...nyscRouteBus];
+    data[index] = { ...data[index], fare: e.target.value };
+    setNyscRouteBus(data);
+  };
+
+  const handleRemoveNyscBus = (index) => {
+    let data = [...nyscRouteBus];
+    data.splice(index, 1);
+    setNyscRouteBus(data);
+  };
+
+  useEffect(() => {
     setNyscRouteData({
       ...nyscRouteData,
-      buses: [
-        {
-          ...nyscRouteData.buses[0],
-          id: e.target.value,
-        },
-      ],
+      buses: nyscRouteBus,
     });
-  };
+  }, [nyscRouteBus]);
 
   const addTheRoute = (e) => {
     e.preventDefault();
@@ -233,22 +259,19 @@ export default function Company() {
         from: "",
         to: "",
       },
-      buses: [
-        {
-          id: "",
-          fare: "",
-        },
-      ],
       company: "",
       departureDate: "",
       recurring: "",
     });
+    setRouteBus([{ id: "", fare: "" }]);
+    setRouteTime([routeTime[0]]);
   };
 
   const addTheNyscRoute = async (e) => {
     e.preventDefault();
 
     try {
+      console.log(nyscRouteData);
       const res = await API.post("/company/addnyscroute", nyscRouteData);
       dispatch(getCompany());
       setNyscRouteData({
@@ -261,16 +284,12 @@ export default function Company() {
           from: "",
           to: "",
         },
-        buses: [
-          {
-            id: "",
-            fare: "",
-          },
-        ],
         company: "",
         departureDate: "",
         recurring: "",
       });
+      setNyscRouteBus([{ id: "", fare: "" }]);
+      setNyscRouteTime([nyscRouteTime[0]]);
     } catch (error) {
       alert(error.response.data.message);
     }
@@ -658,64 +677,98 @@ export default function Company() {
             </select>
           </div>
 
-          <div className="flex flex-col items-center lg:items-start space-y-2">
+          <div className="flex flex-col">
             <label htmlFor="buses">Bus</label>
-            <select
-              className="text-black border px-2 py-1 outline-none shadow-sm w-full rounded-sm"
-              onChange={handleAddBus}
-              value={routeData.buses[0].id}
-              required
-            >
-              <option value="">Bus</option>
-              {buses.map((bus) => (
-                <option value={bus._id}>
-                  {bus.name} {bus.companyName}
-                </option>
+            <div className="flex flex-col">
+              {routeBus.map((item, index) => (
+                <div className="flex flex-col items-center lg:items-start space-y-2">
+                  <div className="flex justify-center items-center space-x-6">
+                    <div>
+                      <select
+                        className="text-black border px-2 py-1 outline-none shadow-sm w-full rounded-sm"
+                        onChange={(e) => {
+                          handleAddBus(e, index);
+                        }}
+                        value={routeBus[index].id}
+                        required
+                      >
+                        <option value="">Bus</option>
+                        {buses.map((bus) => (
+                          <option value={bus._id}>
+                            {bus.name} {bus.companyName}
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        value={routeBus[index].fare}
+                        onChange={(e) => {
+                          handleAddFare(e, index);
+                        }}
+                        className="text-black border px-2 py-1 outline-none shadow-sm rounded-sm"
+                        type="text"
+                        placeholder="Fare"
+                        name="fare"
+                        required
+                      />
+                    </div>
+                    {routeBus.length > 1 && (
+                      <div
+                        onClick={() => {
+                          handleRemoveBus(index);
+                        }}
+                        className="bg-black text-white px-2 py-1 font-semibold flex justify-center rounded-sm transition active:scale-90 hover:scale-105"
+                      >
+                        <DeleteIcon className="text-sm" />
+                      </div>
+                    )}
+                  </div>
+                  {routeBus.length - 1 === index && (
+                    <button
+                      onClick={(e) => {
+                        setRouteBus([...routeBus, { id: "", fare: "" }]);
+                      }}
+                      className="bg-black text-white text-sm px-2 py-1 font-semibold flex justify -center rounded-sm transition active:scale-90 hover:scale-105"
+                    >
+                      Add Bus
+                    </button>
+                  )}
+                </div>
               ))}
-            </select>
-            <input
-              value={routeData.buses[0].fare}
-              onChange={(e) => {
-                setRouteData({
-                  ...routeData,
-                  buses: [
-                    {
-                      ...routeData.buses[0],
-                      fare: e.target.value,
-                    },
-                  ],
-                });
-              }}
-              className="text-black border px-2 py-1 outline-none shadow-sm rounded-sm"
-              type="text"
-              placeholder="Fare"
-              name="fare"
-              required
-            />
+            </div>
           </div>
 
           <div className="flex flex-col lg:flex-row items-center justify-between">
             <label htmlFor="departureTimes">Departure Time</label>
             <div className="flex flex-col">
               {routeTime.map((Time, index) => (
-                <div className="flex space-x-4 items-center">
+                <div key={index} className="flex space-x-4 items-center">
                   <div className="flex flex-col items-center">
-                    <input
-                      key={index}
-                      onChange={(e) => {
-                        routeDepartureTime(e, index);
-                      }}
-                      className="text-black border px-2 py-1 outline-none shadow-sm rounded-sm my-2"
-                      type="time"
-                      name="departureTimes"
-                      multiple
-                      required
-                    />
+                    <div className="flex items-center">
+                      <input
+                        onChange={(e) => {
+                          routeDepartureTime(e, index);
+                        }}
+                        className="text-black border px-2 py-1 outline-none shadow-sm rounded-sm my-2"
+                        type="time"
+                        name="departureTimes"
+                        multiple
+                        required
+                      />
+                      {routeTime.length > 1 && (
+                        <div
+                          onClick={() => {
+                            removeRouteDepartureTime(index);
+                          }}
+                          className="bg-black text-white px-2 py-1 font-semibold flex justify-center rounded-sm transition active:scale-90 hover:scale-105"
+                        >
+                          <DeleteIcon className="text-sm" />
+                        </div>
+                      )}
+                    </div>
 
                     {routeTime.length - 1 === index && (
                       <button
                         onClick={(e) => {
-                          console.log(routeTime);
                           setRouteTime([...routeTime, ""]);
                           e.preventDefault();
                         }}
@@ -725,14 +778,6 @@ export default function Company() {
                       </button>
                     )}
                   </div>
-                  {routeTime.length > 1 && (
-                    <div
-                      onClick={removeRouteDepartureTime(index)}
-                      className="bg-black text-white px-2 py-1 font-semibold flex justify-center rounded-sm transition active:scale-90 hover:scale-105"
-                    >
-                      <DeleteIcon className="text-sm" />
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
@@ -909,54 +954,113 @@ export default function Company() {
             </select>
           </div>
 
-          <div className="flex flex-col items-center lg:items-start space-y-2">
+          <div className="flex flex-col">
             <label htmlFor="buses">Bus</label>
-            <select
-              className="text-black border px-2 py-1 outline-none shadow-sm w-full rounded-sm"
-              value={nyscRouteData.buses[0].id}
-              onChange={handleAddNyscBus}
-              required
-            >
-              <option value="">Bus</option>
-              {buses.map((bus) => (
-                <option value={bus._id}>
-                  {bus.name} {bus.companyName}
-                </option>
+            <div className="flex flex-col">
+              {nyscRouteBus.map((item, index) => (
+                <div className="flex flex-col items-center lg:items-start space-y-2">
+                  <div className="flex justify-center items-center space-x-6">
+                    <div>
+                      <select
+                        className="text-black border px-2 py-1 outline-none shadow-sm w-full rounded-sm"
+                        onChange={(e) => {
+                          handleAddNyscBus(e, index);
+                        }}
+                        value={nyscRouteBus[index].id}
+                        required
+                      >
+                        <option value="">Bus</option>
+                        {buses.map((bus) => (
+                          <option value={bus._id}>
+                            {bus.name} {bus.companyName}
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        value={nyscRouteBus[index].fare}
+                        onChange={(e) => {
+                          handleAddNyscFare(e, index);
+                        }}
+                        className="text-black border px-2 py-1 outline-none shadow-sm rounded-sm"
+                        type="text"
+                        placeholder="Fare"
+                        name="fare"
+                        required
+                      />
+                    </div>
+                    {nyscRouteBus.length > 1 && (
+                      <div
+                        onClick={() => {
+                          handleRemoveNyscBus(index);
+                        }}
+                        className="bg-black text-white px-2 py-1 font-semibold flex justify-center rounded-sm transition active:scale-90 hover:scale-105"
+                      >
+                        <DeleteIcon className="text-sm" />
+                      </div>
+                    )}
+                  </div>
+                  {nyscRouteBus.length - 1 === index && (
+                    <button
+                      onClick={(e) => {
+                        setNyscRouteBus([
+                          ...nyscRouteBus,
+                          { id: "", fare: "" },
+                        ]);
+                      }}
+                      className="bg-black text-white text-sm px-2 py-1 font-semibold flex justify -center rounded-sm transition active:scale-90 hover:scale-105"
+                    >
+                      Add Bus
+                    </button>
+                  )}
+                </div>
               ))}
-            </select>
-            <input
-              value={nyscRouteData.buses[0].fare}
-              onChange={(e) => {
-                setNyscRouteData({
-                  ...nyscRouteData,
-                  buses: [
-                    {
-                      ...nyscRouteData.buses[0],
-                      fare: e.target.value,
-                    },
-                  ],
-                });
-              }}
-              className="text-black border px-2 py-1 outline-none shadow-sm rounded-sm"
-              type="text"
-              placeholder="Fare"
-              name="fare"
-              required
-            />
+            </div>
           </div>
 
           <div className="flex flex-col lg:flex-row  items-center justify-between">
             <label htmlFor="departureTimes">Departure Time</label>
-            <input
-              onChange={(e) => {
-                setNyscRouteTime(e.target.value);
-              }}
-              className="text-black border px-2 py-1 outline-none shadow-sm rounded-sm"
-              type="time"
-              name="departureTimes"
-              multiple
-              required
-            />
+            <div className="flex flex-col">
+              {nyscRouteTime.map((Time, index) => (
+                <div key={index} className="flex space-x-4 items-center">
+                  <div className="flex flex-col items-center">
+                    <div className="flex items-center">
+                      <input
+                        onChange={(e) => {
+                          nyscRouteDepartureTime(e, index);
+                        }}
+                        className="text-black border px-2 py-1 outline-none shadow-sm rounded-sm my-2"
+                        type="time"
+                        name="departureTimes"
+                        multiple
+                        required
+                      />
+                      {nyscRouteTime.length > 1 && (
+                        <div
+                          onClick={() => {
+                            removeNyscRouteDepartureTime(index);
+                          }}
+                          className="bg-black text-white px-2 py-1 font-semibold flex justify-center rounded-sm transition active:scale-90 hover:scale-105"
+                        >
+                          <DeleteIcon className="text-sm" />
+                        </div>
+                      )}
+                    </div>
+
+                    {nyscRouteTime.length - 1 === index && (
+                      <button
+                        onClick={(e) => {
+                          setNyscRouteTime([...nyscRouteTime, ""]);
+                          e.preventDefault();
+                        }}
+                        className="bg-black text-white text-sm px-2 py-1 font-semibold flex justify -center rounded-sm transition active:scale-90 hover:scale-105"
+                      >
+                        Add Time
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="flex flex-col lg:flex-row  items-center justify-between">
             <label htmlFor="departureDate">Departure Date</label>

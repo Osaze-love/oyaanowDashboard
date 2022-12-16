@@ -17,6 +17,7 @@ export default function StickyHeadTable() {
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
+  dd = dd - 1;
   var mm = String(today.getMonth() + 1).padStart(2, "0");
   var yyyy = today.getFullYear();
 
@@ -48,7 +49,7 @@ export default function StickyHeadTable() {
             className="focus:outline-none w-2/6 border px-2"
           >
             <option value="">Default</option>
-            <option value={today}>Today</option>
+            <option value={today}>Yesterday</option>
           </select>
         </div>
         <Paper
@@ -150,56 +151,60 @@ export default function StickyHeadTable() {
                     }
                   })
                   .map((row) => (
-                    <TableRow hover key={row._id}>
+                    <TableRow key={row?._id}>
                       <TableCell className="text-center font-bold">
-                        {row.name}
+                        {row?.name}
                       </TableCell>
-                      <TableCell className="text-center">{row.email}</TableCell>
                       <TableCell className="text-center">
-                        {row.phoneNumber}
+                        {row?.email}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {row?.phoneNumber}
                       </TableCell>
 
                       <TableCell className="text-center">
-                        {row.state.to}
+                        {row?.state?.to}
                       </TableCell>
                       <TableCell className="text-center">
-                        {row.state.from}
+                        {row?.state?.from}
                       </TableCell>
                       <TableCell className="text-center">
-                        {row.ticketId}
+                        {row?.ticketId}
                       </TableCell>
                       <TableCell className="text-center">
-                        {row.terminal.to}
+                        {row?.terminal.to}
                       </TableCell>
                       <TableCell className="text-center">
-                        {row.terminal.from}
+                        {row?.terminal.from}
                       </TableCell>
-                      <TableCell className="text-center">{row.date}</TableCell>
+                      <TableCell className="text-center">{row?.date}</TableCell>
                       <TableCell className="text-center">
-                        {row.createdAt}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {row.gender}
-                      </TableCell>
-                      <TableCell className="text-center">{row.bus}</TableCell>
-                      <TableCell className="text-center">{row.seat}</TableCell>
-                      <TableCell className="text-center">{row.paid}</TableCell>
-                      <TableCell className="text-center">{row.time}</TableCell>
-                      <TableCell className="text-center">
-                        {row.transactionRef}
-                      </TableCell>
-                      <TableCell className="text-center">{row.price}</TableCell>
-                      <TableCell className="text-center">
-                        {row.company}
+                        {row?.createdAt?.substring(0, 10)}
                       </TableCell>
                       <TableCell className="text-center">
-                        {row.kin.name}
+                        {row?.gender}
+                      </TableCell>
+                      <TableCell className="text-center">{row?.bus}</TableCell>
+                      <TableCell className="text-center">{row?.seat}</TableCell>
+
+                      <TableCell className="text-center">{row?.time}</TableCell>
+                      <TableCell className="text-center">
+                        {row?.transactionRef}
                       </TableCell>
                       <TableCell className="text-center">
-                        {row.kin.email}
+                        {row?.price}
                       </TableCell>
                       <TableCell className="text-center">
-                        {row.kin.phoneNumber}
+                        {row?.company}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {row?.kin?.name}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {row?.kin?.email}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {row?.kin?.phoneNumber}
                       </TableCell>
                     </TableRow>
                   ))}

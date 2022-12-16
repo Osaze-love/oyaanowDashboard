@@ -27,13 +27,13 @@ export default function TerminalTable() {
         </button>
       </div>
       <Paper className="w-full lg:w-2/4 my-10 mx-auto">
-        {user.company.terminals.length > 1 ? (
+        {user?.company?.terminals?.length > 1 ? (
           <h2 className="font-bold text-center">
-            {user.company.name} Terminals
+            {user?.company?.name} Terminals
           </h2>
         ) : (
           <h2 className="font-bold text-center">
-            {user.company.name} Terminal
+            {user?.company?.name} Terminal
           </h2>
         )}
         <TableContainer sx={{ maxHeight: 440 }}>
@@ -48,16 +48,16 @@ export default function TerminalTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {user.company.terminals.map((row) => (
-                <TableRow key={row._id} hover>
-                  <TableCell className="font-bold">{row.location}</TableCell>
-                  <TableCell>{row.address}</TableCell>
-                  <TableCell>{row.landmark}</TableCell>
-                  <TableCell>{row.addedBy?.name}</TableCell>
+              {user?.company?.terminals?.map((row) => (
+                <TableRow key={row?._id} hover>
+                  <TableCell className="font-bold">{row?.location}</TableCell>
+                  <TableCell>{row?.address}</TableCell>
+                  <TableCell>{row?.landmark}</TableCell>
+                  <TableCell>{row?.addedBy?.name}</TableCell>
                   <TableCell
                     onClick={() => {
-                      setTerminalId(row._id);
-                      setCompanyId(user.company._id);
+                      setTerminalId(row?._id);
+                      setCompanyId(user?.company?._id);
                       setStaffTerminalModal(true);
                     }}
                   >

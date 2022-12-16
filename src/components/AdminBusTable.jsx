@@ -50,11 +50,11 @@ export default function BusTable({ buses, id, companyName }) {
             </TableHead>
             <TableBody>
               {buses.map((row) => (
-                <TableRow key={row._id} hover>
+                <TableRow key={row?._id} hover>
                   <TableCell className="font-bold">{row.name}</TableCell>
-                  <TableCell>{row.plateNumber}</TableCell>
-                  <TableCell>{row.seats}</TableCell>
-                  <TableCell>{row.addedBy?.name}</TableCell>
+                  <TableCell>{row?.plateNumber}</TableCell>
+                  <TableCell>{row?.seats}</TableCell>
+                  <TableCell>{row?.addedBy?.name}</TableCell>
                   <TableCell
                     onClick={() => {
                       setBusId(row._id);

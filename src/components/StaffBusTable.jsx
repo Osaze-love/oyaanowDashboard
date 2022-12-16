@@ -32,10 +32,12 @@ export default function BusTable() {
       </div>
       <div>
         <Paper className="w-full lg:w-2/4 my-10 mx-auto">
-          {user.company.buses.length > 1 ? (
-            <h2 className="font-bold text-center">{user.company.name} Buses</h2>
+          {user?.company?.buses?.length > 1 ? (
+            <h2 className="font-bold text-center">
+              {user?.company?.name} Buses
+            </h2>
           ) : (
-            <h2 className="font-bold text-center">{user.company.name} Bus</h2>
+            <h2 className="font-bold text-center">{user?.company?.name} Bus</h2>
           )}
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
@@ -53,16 +55,16 @@ export default function BusTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {user.company.buses.map((row) => (
-                  <TableRow key={row._id} hover>
-                    <TableCell className="font-bold">{row.name}</TableCell>
-                    <TableCell>{row.plateNumber}</TableCell>
-                    <TableCell>{row.seats}</TableCell>
-                    <TableCell>{row.addedBy?.name}</TableCell>
+                {user?.company?.buses?.map((row) => (
+                  <TableRow key={row?._id} hover>
+                    <TableCell className="font-bold">{row?.name}</TableCell>
+                    <TableCell>{row?.plateNumber}</TableCell>
+                    <TableCell>{row?.seats}</TableCell>
+                    <TableCell>{row?.addedBy?.name}</TableCell>
                     <TableCell
                       onClick={() => {
-                        setBusId(row._id);
-                        setCompanyId(user.company._id);
+                        setBusId(row?._id);
+                        setCompanyId(user?.company?._id);
                         setStaffBusModal(true);
                       }}
                     >

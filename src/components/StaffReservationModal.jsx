@@ -29,7 +29,7 @@ const StaffReservationModal = ({ reservation, setReservationModal }) => {
                   <p>{reservation.bookedSeats.join()}</p>
                 </div>
                 <div>
-                  <p>{reservation.date}</p>
+                  <p>{reservation.date.substring(0, 10)}</p>
                 </div>
               </div>
             ))}

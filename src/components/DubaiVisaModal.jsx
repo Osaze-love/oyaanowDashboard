@@ -23,10 +23,8 @@ const DubaiVisaModal = ({
             <div className="cursor-pointer">
               <AiOutlineClose
                 onClick={() => {
-                  console.log(dubaiModal);
                   setDubaiImage([]);
                   setDubaiModal(false);
-                  console.log(dubaiModal);
                 }}
                 className="text-2xl active:scale-90 font-bold transition hover:scale-105"
               />
@@ -56,10 +54,8 @@ const DubaiVisaModal = ({
             <div className="cursor-pointer">
               <AiOutlineClose
                 onClick={() => {
-                  console.log(dubaiModal);
                   setDubaiImage([]);
                   setDubaiModal(false);
-                  console.log(dubaiModal);
                 }}
                 className="text-2xl active:scale-90 font-bold transition hover:scale-105"
               />

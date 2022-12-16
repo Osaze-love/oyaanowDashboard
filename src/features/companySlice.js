@@ -71,7 +71,6 @@ export const addRoute = createAsyncThunk(
   async (routeData, { dispatch }) => {
     try {
       const res = await API.post("/company/addroute", routeData);
-      console.log(res);
       dispatch(getCompany());
     } catch (error) {
       alert(error.response.data.message);
