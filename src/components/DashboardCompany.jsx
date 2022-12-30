@@ -506,7 +506,10 @@ export default function StickyHeadTable() {
             <label htmlFor="buses">Bus</label>
             <div className="flex flex-col">
               {routeBus.map((item, index) => (
-                <div className="flex flex-col items-center lg:items-start space-y-2">
+                <div
+                  key={index}
+                  className="flex flex-col items-center lg:items-start space-y-2"
+                >
                   <div className="flex justify-center items-center space-x-6">
                     <div>
                       <select
@@ -590,7 +593,7 @@ export default function StickyHeadTable() {
                       )}
                     </div>
 
-                    {routeTime.length - 1 === index && (
+                    {/* {routeTime.length - 1 === index && (
                       <button
                         onClick={(e) => {
                           setRouteTime([...routeTime, ""]);
@@ -600,7 +603,7 @@ export default function StickyHeadTable() {
                       >
                         Add Time
                       </button>
-                    )}
+                    )} */}
                   </div>
                 </div>
               ))}
@@ -756,7 +759,10 @@ export default function StickyHeadTable() {
             <label htmlFor="buses">Bus</label>
             <div className="flex flex-col">
               {nyscRouteBus.map((item, index) => (
-                <div className="flex flex-col items-center lg:items-start space-y-2">
+                <div
+                  key={index}
+                  className="flex flex-col items-center lg:items-start space-y-2"
+                >
                   <div className="flex justify-center items-center space-x-6">
                     <div>
                       <select
@@ -844,7 +850,7 @@ export default function StickyHeadTable() {
                       )}
                     </div>
 
-                    {nyscRouteTime.length - 1 === index && (
+                    {/* {nyscRouteTime.length - 1 === index && (
                       <button
                         onClick={(e) => {
                           setNyscRouteTime([...nyscRouteTime, ""]);
@@ -854,7 +860,7 @@ export default function StickyHeadTable() {
                       >
                         Add Time
                       </button>
-                    )}
+                    )} */}
                   </div>
                 </div>
               ))}

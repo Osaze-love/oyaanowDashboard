@@ -17,7 +17,6 @@ export default function StickyHeadTable() {
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
-  dd = dd - 1;
   var mm = String(today.getMonth() + 1).padStart(2, "0");
   var yyyy = today.getFullYear();
 
@@ -30,6 +29,16 @@ export default function StickyHeadTable() {
   const { customers } = useSelector((state) => state.bookings);
   return (
     <div className="max-w-full">
+      <div>
+        <button
+          onClick={() => {
+            dispatch(getCustomers());
+          }}
+          className="bg-black text-white text-sm px-2 py-1 font-semibold flex justify -center rounded-sm transition active:scale-90 hover:scale-105 mx-4"
+        >
+          Refresh Bookings
+        </button>
+      </div>
       <div className="w-full flex  items-center justify-between px-4">
         <input
           value={search}
@@ -48,7 +57,7 @@ export default function StickyHeadTable() {
           className="focus:outline-none w-2/6 border px-2"
         >
           <option value="">Default</option>
-          <option value={today}>Yesterday</option>
+          <option value={today}>Today</option>
         </select>
       </div>
 
@@ -135,7 +144,7 @@ export default function StickyHeadTable() {
                     : customer.ticketId?.includes(search);
                 })
                 .filter((customer) => {
-                  const bookingDate = customer.createdAt;
+                  const bookingDate = customer?.date;
                   var todays = new Date(bookingDate);
                   var dd = String(todays.getDate()).padStart(2, "0");
                   var mm = String(todays.getMonth() + 1).padStart(2, "0");
@@ -149,6 +158,7 @@ export default function StickyHeadTable() {
                     return customer;
                   }
                 })
+                .reverse()
                 .map((row) => (
                   <TableRow key={row?._id}>
                     <TableCell className="text-center font-bold">

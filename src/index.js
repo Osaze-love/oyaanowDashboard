@@ -22,11 +22,11 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </PersistGate>
+        {/* <PersistGate loading={null} persistor={persistor}> */}
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+        {/* </PersistGate> */}
       </Provider>
     </ThemeProvider>
   </React.StrictMode>

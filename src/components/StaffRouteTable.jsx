@@ -103,23 +103,33 @@ export default function RouteTable({
                   </TableCell>
                   <TableCell className="text-center">
                     {row?.buses?.map((bus) => (
-                      <div className="space-x-2"> {bus?.name} </div>
+                      <div key={bus._id} className="space-x-2">
+                        {" "}
+                        {bus?.name}{" "}
+                      </div>
                     ))}
                   </TableCell>
                   <TableCell className="text-center">
                     {row?.buses?.map((bus) => (
-                      <div className="space-x-2"> {bus?.fare} </div>
+                      <div key={bus._id} className="space-x-2">
+                        {" "}
+                        {bus?.fare}{" "}
+                      </div>
                     ))}
                   </TableCell>
 
                   <TableCell className="text-center">
                     {row?.buses?.map((bus) => (
-                      <div className="space-x-2"> {bus?.availableSeats} </div>
+                      <div key={bus._id} className="space-x-2">
+                        {" "}
+                        {bus?.availableSeats}{" "}
+                      </div>
                     ))}
                   </TableCell>
                   <TableCell className="text-center">
                     {row?.buses?.map((bus, index) => (
                       <button
+                        key={bus._id}
                         onClick={() => {
                           setReservation(bus?.reservations);
                           setReservationModal(true);

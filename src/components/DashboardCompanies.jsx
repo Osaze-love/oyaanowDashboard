@@ -344,8 +344,6 @@ export default function Company() {
     e.preventDefault();
     dispatch(addBus(busData));
 
-    console.log(busData);
-
     setBusData({
       company: "",
       seats: 14,
@@ -681,7 +679,10 @@ export default function Company() {
             <label htmlFor="buses">Bus</label>
             <div className="flex flex-col">
               {routeBus.map((item, index) => (
-                <div className="flex flex-col items-center lg:items-start space-y-2">
+                <div
+                  key={index}
+                  className="flex flex-col items-center lg:items-start space-y-2"
+                >
                   <div className="flex justify-center items-center space-x-6">
                     <div>
                       <select
@@ -766,7 +767,7 @@ export default function Company() {
                       )}
                     </div>
 
-                    {routeTime.length - 1 === index && (
+                    {/* {routeTime.length - 1 === index && (
                       <button
                         onClick={(e) => {
                           setRouteTime([...routeTime, ""]);
@@ -776,7 +777,7 @@ export default function Company() {
                       >
                         Add Time
                       </button>
-                    )}
+                    )} */}
                   </div>
                 </div>
               ))}
@@ -958,7 +959,10 @@ export default function Company() {
             <label htmlFor="buses">Bus</label>
             <div className="flex flex-col">
               {nyscRouteBus.map((item, index) => (
-                <div className="flex flex-col items-center lg:items-start space-y-2">
+                <div
+                  key={index}
+                  className="flex flex-col items-center lg:items-start space-y-2"
+                >
                   <div className="flex justify-center items-center space-x-6">
                     <div>
                       <select
@@ -1046,7 +1050,7 @@ export default function Company() {
                       )}
                     </div>
 
-                    {nyscRouteTime.length - 1 === index && (
+                    {/* {nyscRouteTime.length - 1 === index && (
                       <button
                         onClick={(e) => {
                           setNyscRouteTime([...nyscRouteTime, ""]);
@@ -1056,7 +1060,7 @@ export default function Company() {
                       >
                         Add Time
                       </button>
-                    )}
+                    )} */}
                   </div>
                 </div>
               ))}
