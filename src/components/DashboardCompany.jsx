@@ -263,7 +263,7 @@ export default function StickyHeadTable() {
   return (
     <div>
       {user.company.buses.length > 0 && <StaffBusTable />}
-      <div className="my-7 max-w-7xl">
+      {/* <div className="my-7 max-w-7xl">
         <button className="bg-slate-800 text-white w-full text-xl py-2 font-bold">
           Add Bus
         </button>
@@ -271,7 +271,7 @@ export default function StickyHeadTable() {
           onSubmit={addTheBus}
           className="shadow-2xl relative text-black w-4/4  lg:w-3/6 mx-auto my-4 space-y-4 py-2 px-2 rounded-md"
         >
-          {/* <div className="flex flex-col lg:flex-row  items-center justify-between">
+          <div className="flex flex-col lg:flex-row  items-center justify-between">
             <label htmlFor="seats">Seats</label>
             <input
               value={busData.seats}
@@ -282,7 +282,7 @@ export default function StickyHeadTable() {
               type="text"
               name="seats"
             />
-          </div> */}
+          </div>
           <div className="flex flex-col lg:flex-row  items-center justify-between">
             <label htmlFor="picture">Picture</label>
             <input
@@ -334,9 +334,9 @@ export default function StickyHeadTable() {
             </button>
           </div>
         </form>
-      </div>
+      </div> */}
       {user.company.terminals.length > 0 && <StaffTerminalTable />}
-      <div className="my-7 max-w-7xl">
+      {/* <div className="my-7 max-w-7xl">
         <button className="bg-slate-800 text-white w-full text-xl py-2 font-bold">
           Add Terminal
         </button>
@@ -397,7 +397,7 @@ export default function StickyHeadTable() {
             </button>
           </div>
         </form>
-      </div>
+      </div> */}
 
       {user.company.routes.length > 0 && (
         <div className="mx-auto">
@@ -408,7 +408,7 @@ export default function StickyHeadTable() {
           />
         </div>
       )}
-      <div className="my-7 max-w-7xl ">
+      {/* <div className="my-7 max-w-7xl ">
         <button className="bg-slate-800 text-white w-full text-xl py-2 font-bold">
           Add Route
         </button>
@@ -593,7 +593,7 @@ export default function StickyHeadTable() {
                       )}
                     </div>
 
-                    {/* {routeTime.length - 1 === index && (
+                    {routeTime.length - 1 === index && (
                       <button
                         onClick={(e) => {
                           setRouteTime([...routeTime, ""]);
@@ -603,7 +603,7 @@ export default function StickyHeadTable() {
                       >
                         Add Time
                       </button>
-                    )} */}
+                    )}
                   </div>
                 </div>
               ))}
@@ -650,7 +650,7 @@ export default function StickyHeadTable() {
             </button>
           </div>
         </form>
-      </div>
+      </div> */}
 
       {user.company.nyscRoutes.length > 0 && (
         <div className="mx-auto">
@@ -661,7 +661,7 @@ export default function StickyHeadTable() {
           />
         </div>
       )}
-      <div className="my-7 max-w-7xl ">
+      {/* <div className="my-7 max-w-7xl ">
         <button className="bg-slate-800 text-white w-full text-xl py-2 font-bold">
           Add Nysc Route
         </button>
@@ -850,7 +850,7 @@ export default function StickyHeadTable() {
                       )}
                     </div>
 
-                    {/* {nyscRouteTime.length - 1 === index && (
+                    {nyscRouteTime.length - 1 === index && (
                       <button
                         onClick={(e) => {
                           setNyscRouteTime([...nyscRouteTime, ""]);
@@ -860,7 +860,7 @@ export default function StickyHeadTable() {
                       >
                         Add Time
                       </button>
-                    )} */}
+                    )}
                   </div>
                 </div>
               ))}
@@ -913,7 +913,7 @@ export default function StickyHeadTable() {
             </button>
           </div>
         </form>
-      </div>
+      </div> */}
       {reservationModal && (
         <StaffReservationModal
           reservation={reservation}

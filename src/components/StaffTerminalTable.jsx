@@ -44,7 +44,7 @@ export default function TerminalTable() {
                 <TableCell className="bg-black text-white">Address</TableCell>
                 <TableCell className="bg-black text-white">Landmark</TableCell>
                 <TableCell className="bg-black text-white">Added By</TableCell>
-                <TableCell className="bg-black ">Delete</TableCell>
+                {/* <TableCell className="bg-black ">Delete</TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -54,7 +54,7 @@ export default function TerminalTable() {
                   <TableCell>{row?.address}</TableCell>
                   <TableCell>{row?.landmark}</TableCell>
                   <TableCell>{row?.addedBy?.name}</TableCell>
-                  <TableCell
+                  {/* <TableCell
                     onClick={() => {
                       setTerminalId(row?._id);
                       setCompanyId(user?.company?._id);
@@ -62,7 +62,7 @@ export default function TerminalTable() {
                     }}
                   >
                     <DeleteIcon className="cursor-pointer hover:scale-105 transition" />
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>

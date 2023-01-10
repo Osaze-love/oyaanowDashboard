@@ -81,7 +81,7 @@ export default function RouteTable({
                 <TableCell className="bg-black text-white text-center">
                   Added By
                 </TableCell>
-                <TableCell className="bg-black  text-center">Delete</TableCell>
+                {/* <TableCell className="bg-black  text-center">Delete</TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -139,7 +139,7 @@ export default function RouteTable({
                   <TableCell className="text-center">
                     {row?.addedBy?.name}
                   </TableCell>
-                  <TableCell
+                  {/* <TableCell
                     onClick={() => {
                       setNyscRouteId(row?._id);
                       setCompanyId(user?.company?._id);
@@ -147,7 +147,7 @@ export default function RouteTable({
                     }}
                   >
                     <DeleteIcon className="cursor-pointer hover:scale-105 transition" />
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
