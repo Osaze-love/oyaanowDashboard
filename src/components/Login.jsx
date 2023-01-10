@@ -16,8 +16,10 @@ const Login = () => {
     e.preventDefault();
 
     const result = await logging(user);
-    dispatch(getuserSuccess(result));
-    navigate("/dashboard/profile");
+    if (localStorage.getItem("token")) {
+      dispatch(getuserSuccess(result));
+      navigate("/dashboard/profile");
+    }
   };
   return (
     <div className="flex flex-col w-full h-screen justify-center items-center">
