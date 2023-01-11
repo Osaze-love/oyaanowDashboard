@@ -65,7 +65,9 @@ export default function RouteTable({
                 <TableCell className="bg-black text-white text-center">
                   Bus
                 </TableCell>
-
+                <TableCell className="bg-black text-white text-center">
+                  Fare
+                </TableCell>
                 <TableCell className="bg-black text-white text-center">
                   Available Seats
                 </TableCell>
